@@ -19,21 +19,27 @@ import { AlertState } from "./utils";
 import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
-//import "./svelte.css";
-const IMAGE_LINK = "/example.gif";
-const LOGO_LINK = "/logo_shapes_nobg.png";
+
+const IMAGE_LINK = "/animation.gif";
+const LOGO_LINK = "/logo.png";
 
 const ConnectButton = styled(WalletDialogButton)`
-width: 100%;
-height: 60px;
-margin-top: 10px;
-margin-bottom: 5px;
-background: linear-gradient(29deg, #34342F 0%,  #44C3A1 100%);
-color: white;
-font-size: 16px;
-font-weight: bold;
+  width: 100%;
+  height: 60px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  background: linear-gradient(29deg, #34342f 0%, #44c3a1 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
 `;
 
+const StyledPaper = styled(Paper)`
+  padding: 20px;
+  background-color: #364038;
+  border-radius: 6px;
+  margin: 10px;
+`;
 const MintContainer = styled.div``; // add your owns styles here
 
 export interface HomeProps {
@@ -169,14 +175,7 @@ const Home = (props: HomeProps) => {
     <>
       <Container style={{ marginTop: 10 }}>
         <Container maxWidth="xs" style={{ position: "relative" }}>
-          <Paper
-            style={{
-              padding: 24,
-              backgroundColor: "#34342f",
-              borderRadius: 6,
-              margin: "10px",
-            }}
-          >
+          <StyledPaper>
             {" "}
             <img
               src={LOGO_LINK}
@@ -184,15 +183,8 @@ const Home = (props: HomeProps) => {
               width="100%"
               style={{ borderRadius: "5px" }}
             />
-          </Paper>
-          <Paper
-            style={{
-              padding: 24,
-              backgroundColor: "#34342f",
-              borderRadius: 6,
-              margin: "10px",
-            }}
-          >
+          </StyledPaper>
+          <StyledPaper>
             <div>
               <img
                 src={IMAGE_LINK}
@@ -201,20 +193,21 @@ const Home = (props: HomeProps) => {
                 style={{ borderRadius: "5px" }}
               />
             </div>
-          </Paper>
+          </StyledPaper>
 
-          <Paper
-            style={{
-              padding: 24,
-              backgroundColor: "#34342f",
-              borderRadius: 6,
-              margin: "10px",
-            }}
-          >
+          <StyledPaper>
             {!wallet.connected ? (
               <ConnectButton>Connect Wallet</ConnectButton>
             ) : loading ? (
-              <div style={{ display: "flex", justifyContent: "center", width: "100%"}}><CircularProgress /></div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  width: "100%",
+                }}
+              >
+                <CircularProgress />
+              </div>
             ) : (
               <>
                 <Header candyMachine={candyMachine} />
@@ -253,7 +246,7 @@ const Home = (props: HomeProps) => {
                 </MintContainer>
               </>
             )}
-          </Paper>
+          </StyledPaper>
         </Container>
 
         <Snackbar
