@@ -16,6 +16,7 @@ import {
   mintOneToken,
 } from "./candy-machine";
 import { AlertState } from "./utils";
+import {checkWLToken } from "./utils/checkWLToken"
 import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
@@ -53,6 +54,7 @@ export interface HomeProps {
 const Home = (props: HomeProps) => {
   const [isUserMinting, setIsUserMinting] = useState(false);
   const [candyMachine, setCandyMachine] = useState<CandyMachineAccount>();
+  const [userHasWhitelistToken, setUserHasWhitelistToken] = useState(false)
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
     message: "",
@@ -80,7 +82,7 @@ const Home = (props: HomeProps) => {
   }, [wallet]);
 
   const refreshCandyMachineState = useCallback(async () => {
-    if (!anchorWallet) {
+    if (!anchorWallet ) {
       return;
     }
 
@@ -92,6 +94,8 @@ const Home = (props: HomeProps) => {
           props.connection
         );
         setCandyMachine(cndy);
+        let WLToken = await checkWLToken(props.connection,anchorWallet.publicKey, cndy?.state?.whitelistMintSettings?.mint)
+        WLToken ? setUserHasWhitelistToken(true) : setUserHasWhitelistToken(false);
         setLoading(false);
       } catch (e) {
         console.log("There was a problem fetching Candy Machine state");
@@ -234,6 +238,7 @@ const Home = (props: HomeProps) => {
                         candyMachine={candyMachine}
                         isMinting={isUserMinting}
                         onMint={onMint}
+                        userHasWhitelistToken={userHasWhitelistToken}
                       />
                     </GatewayProvider>
                   ) : (
@@ -241,6 +246,7 @@ const Home = (props: HomeProps) => {
                       candyMachine={candyMachine}
                       isMinting={isUserMinting}
                       onMint={onMint}
+                      userHasWhitelistToken={userHasWhitelistToken}
                     />
                   )}
                 </MintContainer>
