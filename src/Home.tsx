@@ -20,6 +20,7 @@ import {checkWLToken } from "./utils/checkWLToken"
 import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
+import { usePoller } from "./hooks/usePoller";
 
 const IMAGE_LINK = "/animation.gif";
 const LOGO_LINK = "/logo.png";
@@ -103,7 +104,13 @@ const Home = (props: HomeProps) => {
       }
     }
   }, [anchorWallet, props.candyMachineId, props.connection]);
-
+  var pollTime;
+  usePoller(
+    () => {
+      refreshCandyMachineState();
+    },
+    pollTime ? pollTime : 9999
+  );
   const onMint = async () => {
     try {
       setIsUserMinting(true);
@@ -214,7 +221,7 @@ const Home = (props: HomeProps) => {
               </div>
             ) : (
               <>
-                <Header candyMachine={candyMachine} />
+                <Header candyMachine={candyMachine} refreshCandyMachineState={refreshCandyMachineState} />
                 <MintContainer>
                   {candyMachine?.state.isActive &&
                   candyMachine?.state.gatekeeper &&

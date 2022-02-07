@@ -10,7 +10,7 @@ type HeaderProps = {
   candyMachine?: CandyMachineAccount;
 };
 
-export const Header = ({ candyMachine }: HeaderProps) => {
+export const Header = ({ candyMachine, refreshCandyMachineState }: {candyMachine?: CandyMachineAccount; refreshCandyMachineState: any }) => {
   return (
     <Grid container direction="row" justifyContent="center" wrap="nowrap">
       <Grid container direction="row" wrap="nowrap">
@@ -60,6 +60,7 @@ export const Header = ({ candyMachine }: HeaderProps) => {
               ? 'PRESALE'
               : 'LIVE'
           }
+          refreshCandyMachineState={refreshCandyMachineState}
         />
       </Grid>
     </Grid>
