@@ -42,7 +42,7 @@ export const MintButton = ({
       return 'SOLD OUT';
     } else if (isMinting) {
       return <CircularProgress />;
-    } else if  (!userHasWhitelistToken) {return "NO WL TOKENS"}
+    } else if  (!userHasWhitelistToken && candyMachine?.state.isPresale ) {return "NO WL TOKENS"}
     else if (candyMachine?.state.isPresale) {
       return 'PRESALE MINT';
     }
@@ -55,7 +55,7 @@ export const MintButton = ({
       disabled={
         candyMachine?.state.isSoldOut ||
         isMinting ||
-        !candyMachine?.state.isActive || !userHasWhitelistToken
+        !candyMachine?.state.isActive || (!userHasWhitelistToken&& candyMachine?.state.isPresale)
       }
       onClick={async () => {
         setClicked(true);

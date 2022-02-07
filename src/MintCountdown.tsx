@@ -50,6 +50,7 @@ interface MintCountdownProps {
   style?: React.CSSProperties;
   status?: string;
   onComplete?: () => void;
+  refreshCandyMachineState: any;
 }
 
 interface MintCountdownRender {
@@ -65,6 +66,7 @@ export const MintCountdown: React.FC<MintCountdownProps> = ({
   status,
   style,
   onComplete,
+  refreshCandyMachineState
 }) => {
   const classes = useStyles();
   const renderCountdown = ({
@@ -107,7 +109,7 @@ export const MintCountdown: React.FC<MintCountdownProps> = ({
     return (
       <Countdown
         date={date}
-        onComplete={onComplete}
+        onComplete={() => refreshCandyMachineState()}
         renderer={renderCountdown}
       />
     );
