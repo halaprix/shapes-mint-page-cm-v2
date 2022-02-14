@@ -21,9 +21,19 @@ import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
 import { usePoller } from "./hooks/usePoller";
+//@ts-ignore
+import confetti from "canvas-confetti";
 
 const IMAGE_LINK = "/animation.gif";
 const LOGO_LINK = "/logo.png";
+
+function throwConfetti(): void {
+  confetti({
+    particleCount: 200,
+    spread: 70,
+    origin: { y: 0.6 },
+  });
+}
 
 const ConnectButton = styled(WalletDialogButton)`
   width: 100%;
@@ -131,6 +141,7 @@ const Home = (props: HomeProps) => {
         }
 
         if (status && !status.err) {
+          throwConfetti();
           setAlertState({
             open: true,
             message: "Congratulations! Mint succeeded!",
