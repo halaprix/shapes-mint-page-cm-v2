@@ -1,7 +1,9 @@
 import { Paper } from '@material-ui/core';
 import Countdown from 'react-countdown';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import styled from "styled-components"
 
+const MintContainer = styled.div``; // add your owns styles here
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
