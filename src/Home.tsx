@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, useCallback } from "react";
 import * as anchor from "@project-serum/anchor";
 
 import styled from "styled-components";
-import { Container, Snackbar, CircularProgress } from "@material-ui/core";
+import { Container, Snackbar, CircularProgress, Box } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
 import { PublicKey } from "@solana/web3.js";
@@ -16,7 +16,7 @@ import {
   mintOneToken,
 } from "./candy-machine";
 import { AlertState } from "./utils";
-import {checkWLToken } from "./utils/checkWLToken"
+import { checkWLToken } from "./utils/checkWLToken";
 import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
@@ -40,17 +40,20 @@ const ConnectButton = styled(WalletDialogButton)`
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: linear-gradient(29deg, #34342f 0%, #44c3a1 100%);
-  color: white;
+  background: linear-gradient(29deg, #fe4a49 0%,  #aeeeb2  100%);
+  color: #000 ;
   font-size: 16px;
   font-weight: bold;
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
-  background-color: #364038;
+  background-color: #eed2ae  ;
   border-radius: 6px;
   margin: 10px;
+  -webkit-box-shadow: 8px 8px 71px 0px rgba(83, 66, 90, 1);
+  -moz-box-shadow: 8px 8px 71px 0px rgba(83, 66, 90, 1);
+  box-shadow: 8px 8px 71px 0px rgba(83, 66, 90, 1);
 `;
 const MintContainer = styled.div``; // add your owns styles here
 
@@ -65,7 +68,7 @@ export interface HomeProps {
 const Home = (props: HomeProps) => {
   const [isUserMinting, setIsUserMinting] = useState(false);
   const [candyMachine, setCandyMachine] = useState<CandyMachineAccount>();
-  const [userHasWhitelistToken, setUserHasWhitelistToken] = useState(false)
+  const [userHasWhitelistToken, setUserHasWhitelistToken] = useState(false);
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
     message: "",
@@ -93,7 +96,7 @@ const Home = (props: HomeProps) => {
   }, [wallet]);
 
   const refreshCandyMachineState = useCallback(async () => {
-    if (!anchorWallet ) {
+    if (!anchorWallet) {
       return;
     }
 
@@ -105,8 +108,14 @@ const Home = (props: HomeProps) => {
           props.connection
         );
         setCandyMachine(cndy);
-        let WLToken = await checkWLToken(props.connection,anchorWallet.publicKey, cndy?.state?.whitelistMintSettings?.mint)
-        WLToken ? setUserHasWhitelistToken(true) : setUserHasWhitelistToken(false);
+        let WLToken = await checkWLToken(
+          props.connection,
+          anchorWallet.publicKey,
+          cndy?.state?.whitelistMintSettings?.mint
+        );
+        WLToken
+          ? setUserHasWhitelistToken(true)
+          : setUserHasWhitelistToken(false);
         setLoading(false);
       } catch (e) {
         console.log("There was a problem fetching Candy Machine state");
@@ -195,7 +204,7 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
-      <Container style={{ marginTop: 10 }}>
+      <Box style={{ minHeight: "100vh", display: "flex" }} alignItems="center">
         <Container maxWidth="xs" style={{ position: "relative" }}>
           <StyledPaper>
             {" "}
@@ -232,7 +241,10 @@ const Home = (props: HomeProps) => {
               </div>
             ) : (
               <>
-                <Header candyMachine={candyMachine} refreshCandyMachineState={refreshCandyMachineState} />
+                <Header
+                  candyMachine={candyMachine}
+                  refreshCandyMachineState={refreshCandyMachineState}
+                />
                 <MintContainer>
                   {candyMachine?.state.isActive &&
                   candyMachine?.state.gatekeeper &&
@@ -285,7 +297,7 @@ const Home = (props: HomeProps) => {
             {alertState.message}
           </Alert>
         </Snackbar>
-      </Container>
+      </Box>
     </>
   );
 };
