@@ -1,17 +1,17 @@
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import { CandyMachineAccount } from './candy-machine';
-import { CircularProgress } from '@material-ui/core';
-import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
-import { useEffect, useState } from 'react';
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import { CandyMachineAccount } from "./candy-machine";
+import { CircularProgress } from "@material-ui/core";
+import { GatewayStatus, useGateway } from "@civic/solana-gateway-react";
+import { useEffect, useState } from "react";
 
 export const CTAButton = styled(Button)`
   width: 100%;
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: linear-gradient(29deg, #34342F 0%,  #44C3A1 100%);
-  color: white;
+  background: linear-gradient(29deg, #fe4a49 0%, #aeeeb2 100%);
+  color: #000;
   font-size: 16px;
   font-weight: bold;
 `; // add your own styles here
@@ -20,7 +20,7 @@ export const MintButton = ({
   onMint,
   candyMachine,
   isMinting,
-  userHasWhitelistToken
+  userHasWhitelistToken,
 }: {
   onMint: () => Promise<void>;
   candyMachine?: CandyMachineAccount;
@@ -39,15 +39,16 @@ export const MintButton = ({
 
   const getMintButtonContent = () => {
     if (candyMachine?.state.isSoldOut) {
-      return 'SOLD OUT';
+      return "SOLD OUT";
     } else if (isMinting) {
       return <CircularProgress />;
-    } else if  (!userHasWhitelistToken && candyMachine?.state.isPresale ) {return "NO WL TOKENS"}
-    else if (candyMachine?.state.isPresale) {
-      return 'PRESALE MINT';
+    } else if (!userHasWhitelistToken && candyMachine?.state.isPresale) {
+      return "NO WL TOKENS";
+    } else if (candyMachine?.state.isPresale) {
+      return "PRESALE MINT";
     }
 
-    return 'MINT';
+    return "MINT";
   };
 
   return (
@@ -55,7 +56,8 @@ export const MintButton = ({
       disabled={
         candyMachine?.state.isSoldOut ||
         isMinting ||
-        !candyMachine?.state.isActive || (!userHasWhitelistToken&& candyMachine?.state.isPresale)
+        !candyMachine?.state.isActive ||
+        (!userHasWhitelistToken && candyMachine?.state.isPresale)
       }
       onClick={async () => {
         setClicked(true);
