@@ -23,26 +23,26 @@ export const Header = ({
         {candyMachine && (
           <Grid container direction="row" wrap="nowrap">
             <Grid container direction="column">
-              <Typography variant="body2" style={{ color: "#000" }}>
+              <Typography variant="body2" style={{ color: "#614014" }}>
                 Remaining
               </Typography>
               <Typography
                 variant="h6"
                 style={{
                   fontWeight: "bold",
-                  color: "#000",
+                  color: "#614014",
                 }}
               >
                 {`${candyMachine?.state.itemsRemaining}`}
               </Typography>
             </Grid>
             <Grid container direction="column">
-              <Typography variant="body2" style={{ color: "#000" }}>
+              <Typography variant="body2" style={{ color: "#614014" }}>
                 Price
               </Typography>
               <Typography
                 variant="h6"
-                style={{ fontWeight: "bold", color: "#000" }}
+                style={{ fontWeight: "bold", color: "#614014" }}
               >
                 {getMintPrice(candyMachine)}
               </Typography>
