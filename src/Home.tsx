@@ -23,7 +23,7 @@ import { GatewayProvider } from "@civic/solana-gateway-react";
 import { usePoller } from "./hooks/usePoller";
 //@ts-ignore
 import confetti from "canvas-confetti";
-
+require("./Bg.css");
 const IMAGE_LINK = "/animation.gif";
 const LOGO_LINK = "/logo.png";
 
@@ -40,15 +40,15 @@ const ConnectButton = styled(WalletDialogButton)`
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: linear-gradient(29deg, #fe4a49 0%,  #aeeeb2  100%);
-  color: #614014 ;
+  background: linear-gradient(29deg, #fe4a49 0%, #aeeeb2 100%);
+  color: #614014;
   font-size: 16px;
   font-weight: bold;
 `;
 
 const StyledPaper = styled(Paper)`
   padding: 20px;
-  background-color: #eed2ae  ;
+  background-color: #eed2ae;
   border-radius: 6px;
   margin: 10px;
   -webkit-box-shadow: 8px 8px 71px 0px rgba(83, 66, 90, 1);
@@ -66,6 +66,7 @@ export interface HomeProps {
 }
 
 const Home = (props: HomeProps) => {
+  const [animatedBg, setAnimatedBg] = useState(false);
   const [isUserMinting, setIsUserMinting] = useState(false);
   const [candyMachine, setCandyMachine] = useState<CandyMachineAccount>();
   const [userHasWhitelistToken, setUserHasWhitelistToken] = useState(false);
@@ -204,6 +205,44 @@ const Home = (props: HomeProps) => {
 
   return (
     <>
+      {animatedBg && <div className="section section--featured">
+        <div className="row-container">
+          <div className="line">
+            <div>
+              <div className="row">
+                <img src="line-3-min.png" alt="" />
+              </div>
+              <div className="row">
+                <img src="line-3-min.png" alt="" />
+              </div>
+            </div>
+          </div>
+
+          <div className="line second">
+            <div>
+              <div className="row">
+                <img src="line-1-min.png" alt="" />
+              </div>
+              <div className="row">
+                <img src="line-1-min.png" alt="" />
+              </div>
+            </div>
+          </div>
+          <div className="line third">
+            <div>
+              <div className="row">
+                <img src="line-3-min.png" alt="" />
+              </div>
+              <div className="row">
+                <img src="line-3-min.png" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="shadow">
+          <span></span>
+        </div>
+      </div>}
       <Box style={{ minHeight: "100vh", display: "flex" }} alignItems="center">
         <Container maxWidth="xs" style={{ position: "relative" }}>
           <StyledPaper>
@@ -213,6 +252,7 @@ const Home = (props: HomeProps) => {
               alt=""
               width="100%"
               style={{ borderRadius: "5px" }}
+              onClick={()=> setAnimatedBg(!animatedBg)}
             />
           </StyledPaper>
           <StyledPaper>
