@@ -20,12 +20,14 @@ export const MintButton = ({
   onMint,
   candyMachine,
   isMinting,
-  userHasWhitelistToken,
+  setIsMinting,
+  isActive,
 }: {
   onMint: () => Promise<void>;
   candyMachine?: CandyMachineAccount;
   isMinting: boolean;
-  userHasWhitelistToken: boolean;
+  setIsMinting: (val: boolean) => void;
+  isActive: boolean;
 }) => {
   const { requestGatewayToken, gatewayStatus } = useGateway();
   const [clicked, setClicked] = useState(false);
@@ -42,10 +44,11 @@ export const MintButton = ({
       return "SOLD OUT";
     } else if (isMinting) {
       return <CircularProgress />;
-    } else if (!userHasWhitelistToken && candyMachine?.state.isPresale) {
-      return "NO WL TOKENS";
-    } else if (candyMachine?.state.isPresale) {
-      return "PRESALE MINT";
+    } else if (
+      candyMachine?.state.isPresale ||
+      candyMachine?.state.isWhitelistOnly
+    ) {
+      return "WHITELIST MINT";
     }
 
     return "MINT";
@@ -53,12 +56,7 @@ export const MintButton = ({
 
   return (
     <CTAButton
-      disabled={
-        candyMachine?.state.isSoldOut ||
-        isMinting ||
-        !candyMachine?.state.isActive ||
-        (!userHasWhitelistToken && candyMachine?.state.isPresale)
-      }
+      disabled={isMinting || !isActive}
       onClick={async () => {
         setClicked(true);
         if (candyMachine?.state.isActive && candyMachine?.state.gatekeeper) {

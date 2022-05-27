@@ -1,50 +1,48 @@
-import { Paper } from '@material-ui/core';
-import Countdown from 'react-countdown';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import styled from "styled-components"
+import { Paper } from "@material-ui/core";
+import Countdown from "react-countdown";
+import { Theme, createStyles, makeStyles } from "@material-ui/core/styles";
 
-const MintContainer = styled.div``; // add your owns styles here
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: 'flex',
+      display: "flex",
       padding: theme.spacing(0),
-      '& > *': {
-        margin: theme.spacing(0.5),
-        marginRight: 0,
+      "& > *": {
+        margin: theme.spacing(0.4),
         width: theme.spacing(6),
         height: theme.spacing(6),
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#384457',
-        color: 'white',
+        display: "flex",
+        flexDirection: "column",
+        alignContent: "center",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#384457",
+        color: "white",
         borderRadius: 5,
         fontSize: 10,
       },
     },
     done: {
-      display: 'flex',
-      margin: theme.spacing(1),
-      marginRight: 0,
+      display: "flex",
+      margin: 0,
+      marginBottom: theme.spacing(0.5),
+      height: theme.spacing(3.5),
       padding: theme.spacing(1),
-      flexDirection: 'column',
-      alignContent: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-      background: '#384457',
-      color: 'white',
+      flexDirection: "column",
+      alignContent: "center",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "#384457",
+      color: "white",
       borderRadius: 5,
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 18,
     },
     item: {
-      fontWeight: 'bold',
+      fontWeight: "bold",
       fontSize: 18,
     },
-  }),
+  })
 );
 
 interface MintCountdownProps {
@@ -52,7 +50,6 @@ interface MintCountdownProps {
   style?: React.CSSProperties;
   status?: string;
   onComplete?: () => void;
-  refreshCandyMachineState: any;
 }
 
 interface MintCountdownRender {
@@ -68,7 +65,6 @@ export const MintCountdown: React.FC<MintCountdownProps> = ({
   status,
   style,
   onComplete,
-  refreshCandyMachineState
 }) => {
   const classes = useStyles();
   const renderCountdown = ({
@@ -111,7 +107,7 @@ export const MintCountdown: React.FC<MintCountdownProps> = ({
     return (
       <Countdown
         date={date}
-        onComplete={() => refreshCandyMachineState()}
+        onComplete={onComplete}
         renderer={renderCountdown}
       />
     );
