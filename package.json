@@ -16,7 +16,7 @@
     "@solana/wallet-adapter-react": "^0.13.1",
     "@solana/wallet-adapter-react-ui": "^0.6.1",
     "@solana/wallet-adapter-wallets": "^0.11.3",
-    "@solana/web3.js": "^1.33.0",
+    "@solana/web3.js": "1.34.0",
     "canvas-confetti": "^1.5.1",
     "mime": "^3.0.0",
     "prop-types": "^15.7.2",
